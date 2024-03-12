@@ -2,7 +2,7 @@
 
 ### Description
 This is program that lets you manage tasks based on: assigned user, date assigned and due date.
-Hopefully it will help when managing large projects with multiple who have a variety of tasks assigned to them!
+Hopefully it will help when managing large projects with multiple users who have a variety of tasks assigned to them!
 
 
 ### Installation
