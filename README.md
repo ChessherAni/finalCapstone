@@ -28,4 +28,3 @@ Example screenshots:
 
 3. Viewing the new user's tasks
 <img width="722" alt="view_my_tasks_example" src="https://github.com/ChessherAni/finalCapstone/assets/157521808/fe84af45-9e37-4281-aa90-4b21c5c6baa5">
-
