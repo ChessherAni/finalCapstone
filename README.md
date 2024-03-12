@@ -18,3 +18,14 @@ Using this program you can:
   - View all the tasks belonging to the user currently logged in
   - Generate reports about the tasks have been generated and tracked using the program
   - Display statistics from these reports
+
+Example screenshots:
+1. Menu
+<img width="728" alt="menu_example" src="https://github.com/ChessherAni/finalCapstone/assets/157521808/d272bccd-fddf-4ef5-b38f-a9440d7d45eb">
+
+2. Registering a new user
+<img width="727" alt="new_user_registration_example" src="https://github.com/ChessherAni/finalCapstone/assets/157521808/9c52bd9f-cd80-4902-9a90-a335ba9a1fa2">
+
+3. Viewing the new user's tasks
+<img width="722" alt="view_my_tasks_example" src="https://github.com/ChessherAni/finalCapstone/assets/157521808/fe84af45-9e37-4281-aa90-4b21c5c6baa5">
+
