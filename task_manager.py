@@ -174,155 +174,155 @@ def view_mine():
     if len(task_list) == no_tasks:
         print(f"No tasks have been assigned to you yet")
         print("_"*50 + "\n")
-        exit()
+        
+    else:
+        # Editing tasks
+        task_choice = input("Enter the number of a task to edit it, or enter -1 to return to menu: ")
 
-    # Editing tasks
-    task_choice = input("Enter the number of a task to edit it, or enter -1 to return to menu: ")
-
-    # Error handling
-    while True:
-        # Return to menu if user enters -1
-        if task_choice == "-1":
-            clear_screen()
-            break
-        elif not task_choice.isnumeric() or int(task_choice) > task_num:
-            task_choice = input("Please enter the number of a task, or -1: ")
-        elif int(task_choice) < -1 or int(task_choice) == 0:
-            task_choice = input("Please enter the number of a task, or -1: ")
-        else:
-            break
-
-    # Logic for editing tasks    
-    # Remind user which task they're editing
-    completed_check = False
-    for t in task_list:
-        if task_choice != "-1" and int(task_choice) == t['number']:
-            clear_screen()
-            print(f"You are editing task '{t['title'].capitalize()}'")
-            print()
-            
-            # If task is already complete, return to menu
-            if t['completed']:
-                clear_screen()
-                print("Cannot edit completed tasks. Returning to menu")
-                completed_check = True
-                break
-
-    if task_choice != "-1" and not completed_check:
-        # Ask user which task they want to edit
-        edit_choice = input("""There are three editing options:
-    1. Mark this task as complete
-    2. Edit the user assigned to this task
-    3. Edit the due date of this task\nEnter option number: """)
-                
         # Error handling
         while True:
-            if not edit_choice.isdigit() or int(edit_choice) > 3 or int(edit_choice) == 0:
-                edit_choice = input("Invalid answer. Enter 1, 2 or 3: ")
+            # Return to menu if user enters -1
+            if task_choice == "-1":
+                clear_screen()
+                break
+            elif not task_choice.isnumeric() or int(task_choice) > task_num:
+                task_choice = input("Please enter the number of a task, or -1: ")
+            elif int(task_choice) < -1 or int(task_choice) == 0:
+                task_choice = input("Please enter the number of a task, or -1: ")
             else:
                 break
-            
-        # Marking a task as complete
-        if edit_choice == "1":
-            for t in task_list:
-                if int(task_choice) != t['number']:
-                    continue
-                else:
-                    # Change to completed
-                    t['completed'] = True
 
-                    # Success message
+        # Logic for editing tasks    
+        # Remind user which task they're editing
+        completed_check = False
+        for t in task_list:
+            if task_choice != "-1" and int(task_choice) == t['number']:
+                clear_screen()
+                print(f"You are editing task '{t['title'].capitalize()}'")
+                print()
+                
+                # If task is already complete, return to menu
+                if t['completed']:
                     clear_screen()
-                    print(f"Task '{t['title'].capitalize()}' marked as complete")
+                    print("Cannot edit completed tasks. Returning to menu")
+                    completed_check = True
+                    break
 
-                    # Write changes to tasks.txt
-                    with open("tasks.txt", "w") as task_file:
-                        task_list_to_write = []
-                        for t in task_list:
-                            str_attrs = [
-                                t['username'],
-                                t['title'],
-                                t['description'],
-                                t['due_date'].strftime(DATETIME_STRING_FORMAT),
-                                t['assigned_date'].strftime(DATETIME_STRING_FORMAT),
-                                "Yes" if t['completed'] else "No"
-                            ]
-                            task_list_to_write.append(";".join(str_attrs))
-                        task_file.write("\n".join(task_list_to_write))
-
-        # Editing a task's username
-        elif edit_choice == "2":
-            for t in task_list:
-                if int(task_choice) != t['number']:
-                    continue
-                else:
-                    new_task_username = input("This task is now assigned to: ")
-                    # Error handling
-                    while True:
-                        if new_task_username in username_password.keys():
-                            break
-                        else:
-                            new_task_username = input("Please enter a valid username: ")
-
-                    # Change task's username
-                    t['username'] = new_task_username
-
-                    # Success message
-                    clear_screen()
-                    print(f"Task '{t['title'].capitalize()}' now assigned to '{t['username']}'")
-
-                    # Write changes to tasks.txt
-                    with open("tasks.txt", "w") as task_file:
-                        task_list_to_write = []
-                        for t in task_list:
-                            str_attrs = [
-                                t['username'],
-                                t['title'],
-                                t['description'],
-                                t['due_date'].strftime(DATETIME_STRING_FORMAT),
-                                t['assigned_date'].strftime(DATETIME_STRING_FORMAT),
-                                "Yes" if t['completed'] else "No"
-                            ]
-                            task_list_to_write.append(";".join(str_attrs))
-                        task_file.write("\n".join(task_list_to_write))
-
-        # Edit a task's due date
-        elif edit_choice == "3":
-            for t in task_list:
-                if int(task_choice) != t['number']:
-                    continue
-                else:                
-                    # Error handling
-                    while True:
-                        try:
-                            new_task_duedate = input("New task due date (YYYY-MM-DD): ")
-                            new_datetime = datetime.strptime(new_task_duedate, DATETIME_STRING_FORMAT)
-                            break
-
-                        except ValueError:
-                            print("Invalid datetime format. Please use the format specified")
+        if task_choice != "-1" and not completed_check:
+            # Ask user which task they want to edit
+            edit_choice = input("""There are three editing options:
+        1. Mark this task as complete
+        2. Edit the user assigned to this task
+        3. Edit the due date of this task\nEnter option number: """)
                     
-                    # Change task's due date
-                    t['due_date'] = new_datetime
+            # Error handling
+            while True:
+                if not edit_choice.isdigit() or int(edit_choice) > 3 or int(edit_choice) == 0:
+                    edit_choice = input("Invalid answer. Enter 1, 2 or 3: ")
+                else:
+                    break
+                
+            # Marking a task as complete
+            if edit_choice == "1":
+                for t in task_list:
+                    if int(task_choice) != t['number']:
+                        continue
+                    else:
+                        # Change to completed
+                        t['completed'] = True
 
-                    # Success message
-                    clear_screen()
-                    print(f"Task '{t['title'].capitalize()}' due date changed to {new_datetime}")
+                        # Success message
+                        clear_screen()
+                        print(f"Task '{t['title'].capitalize()}' marked as complete")
 
-                    # Write changes to tasks.txt
-                    with open("tasks.txt", "w") as task_file:
-                        task_list_to_write = []
-                        for t in task_list:
-                            str_attrs = [
-                                t['username'],
-                                t['title'],
-                                t['description'],
-                                t['due_date'].strftime(DATETIME_STRING_FORMAT),
-                                t['assigned_date'].strftime(DATETIME_STRING_FORMAT),
-                                "Yes" if t['completed'] else "No"
-                            ]
-                            task_list_to_write.append(";".join(str_attrs))
-                        task_file.write("\n".join(task_list_to_write))
+                        # Write changes to tasks.txt
+                        with open("tasks.txt", "w") as task_file:
+                            task_list_to_write = []
+                            for t in task_list:
+                                str_attrs = [
+                                    t['username'],
+                                    t['title'],
+                                    t['description'],
+                                    t['due_date'].strftime(DATETIME_STRING_FORMAT),
+                                    t['assigned_date'].strftime(DATETIME_STRING_FORMAT),
+                                    "Yes" if t['completed'] else "No"
+                                ]
+                                task_list_to_write.append(";".join(str_attrs))
+                            task_file.write("\n".join(task_list_to_write))
+
+            # Editing a task's username
+            elif edit_choice == "2":
+                for t in task_list:
+                    if int(task_choice) != t['number']:
+                        continue
+                    else:
+                        new_task_username = input("This task is now assigned to: ")
+                        # Error handling
+                        while True:
+                            if new_task_username in username_password.keys():
+                                break
+                            else:
+                                new_task_username = input("Please enter a valid username: ")
+
+                        # Change task's username
+                        t['username'] = new_task_username
+
+                        # Success message
+                        clear_screen()
+                        print(f"Task '{t['title'].capitalize()}' now assigned to '{t['username']}'")
+
+                        # Write changes to tasks.txt
+                        with open("tasks.txt", "w") as task_file:
+                            task_list_to_write = []
+                            for t in task_list:
+                                str_attrs = [
+                                    t['username'],
+                                    t['title'],
+                                    t['description'],
+                                    t['due_date'].strftime(DATETIME_STRING_FORMAT),
+                                    t['assigned_date'].strftime(DATETIME_STRING_FORMAT),
+                                    "Yes" if t['completed'] else "No"
+                                ]
+                                task_list_to_write.append(";".join(str_attrs))
+                            task_file.write("\n".join(task_list_to_write))
+
+            # Edit a task's due date
+            elif edit_choice == "3":
+                for t in task_list:
+                    if int(task_choice) != t['number']:
+                        continue
+                    else:                
+                        # Error handling
+                        while True:
+                            try:
+                                new_task_duedate = input("New task due date (YYYY-MM-DD): ")
+                                new_datetime = datetime.strptime(new_task_duedate, DATETIME_STRING_FORMAT)
+                                break
+
+                            except ValueError:
+                                print("Invalid datetime format. Please use the format specified")
+                        
+                        # Change task's due date
+                        t['due_date'] = new_datetime
+
+                        # Success message
+                        clear_screen()
+                        print(f"Task '{t['title'].capitalize()}' due date changed to {new_datetime}")
+
+                        # Write changes to tasks.txt
+                        with open("tasks.txt", "w") as task_file:
+                            task_list_to_write = []
+                            for t in task_list:
+                                str_attrs = [
+                                    t['username'],
+                                    t['title'],
+                                    t['description'],
+                                    t['due_date'].strftime(DATETIME_STRING_FORMAT),
+                                    t['assigned_date'].strftime(DATETIME_STRING_FORMAT),
+                                    "Yes" if t['completed'] else "No"
+                                ]
+                                task_list_to_write.append(";".join(str_attrs))
+                            task_file.write("\n".join(task_list_to_write))
 
 def generate_report():
     """If the user is an admin they can generate statistics about number of users
